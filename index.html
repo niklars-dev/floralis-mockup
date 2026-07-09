@@ -1,0 +1,1217 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floralis · Oriental Oase — Design-Mockups</title>
+<style>
+  /* ============ Fonts ============
+     Lokal geöffnet lädt Fraunces/Inter von Google Fonts.
+     Im Artifact (CSP) greift der kuratierte System-Fallback:
+     Iowan Old Style / Palatino → warme humanistische Serif, nah an Fraunces. */
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,420&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --serif:"Fraunces","Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,serif;
+    --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+
+    /* Seiten-Chrome (außerhalb des Telefons) — hell */
+    --page-bg:#f6f2ea;
+    --page-ink:#22301f;
+    --page-muted:#6d7566;
+    --page-card:#fffdf8;
+    --page-border:rgba(34,48,31,.14);
+    --page-accent:#3e5c47;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --page-bg:#171420;
+      --page-ink:#efeae1;
+      --page-muted:#a79fb0;
+      --page-card:#221e30;
+      --page-border:rgba(239,234,225,.14);
+      --page-accent:#a794d6;
+    }
+  }
+  :root[data-theme="dark"]{
+    --page-bg:#171420; --page-ink:#efeae1; --page-muted:#a79fb0;
+    --page-card:#221e30; --page-border:rgba(239,234,225,.14); --page-accent:#a794d6;
+  }
+  :root[data-theme="light"]{
+    --page-bg:#f6f2ea; --page-ink:#22301f; --page-muted:#6d7566;
+    --page-card:#fffdf8; --page-border:rgba(34,48,31,.14); --page-accent:#3e5c47;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--page-bg); color:var(--page-ink);
+    font-family:var(--sans); font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  button{font:inherit; cursor:pointer; border:0; background:none; color:inherit; padding:0}
+  button:focus-visible, a:focus-visible{outline:2px solid var(--page-accent); outline-offset:3px; border-radius:6px}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important; transition:none!important}
+  }
+
+  /* ============ Studio-Layout ============ */
+  .studio{max-width:1240px; margin:0 auto; padding:32px 20px 80px}
+  .studio-header{text-align:center; margin-bottom:8px}
+  .eyebrow{
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--page-muted); font-weight:600;
+  }
+  h1.title{
+    font-family:var(--serif); font-weight:420; font-size:clamp(30px,4.5vw,46px);
+    letter-spacing:.01em; margin:.25em 0 .15em; text-wrap:balance;
+  }
+  .studio-header p{max-width:58ch; margin:0 auto; color:var(--page-muted)}
+
+  /* Palette-Chips */
+  .palette-bar{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+    margin:26px 0 30px;
+  }
+  .pchip{
+    display:flex; align-items:center; gap:9px;
+    padding:9px 15px 9px 10px; border-radius:999px;
+    background:var(--page-card); border:1.5px solid var(--page-border);
+    color:var(--page-ink); transition:border-color .2s, transform .15s;
+  }
+  .pchip:hover{transform:translateY(-1px)}
+  .pchip[aria-pressed="true"]{border-color:var(--page-accent); box-shadow:0 0 0 1px var(--page-accent)}
+  .pchip .dots{display:flex}
+  .pchip .dots i{width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(0,0,0,.12); margin-left:-5px}
+  .pchip .dots i:first-child{margin-left:0}
+  .pchip small{display:block; font-size:10px; color:var(--page-muted); letter-spacing:.04em}
+  .pchip b{font-weight:600; font-size:13px; display:block; line-height:1.2}
+
+  .stage{display:flex; gap:44px; justify-content:center; align-items:flex-start; flex-wrap:wrap}
+  .stage-side{flex:1 1 340px; max-width:430px; min-width:300px}
+  .stage-side .panel{
+    background:var(--page-card); border:1px solid var(--page-border);
+    border-radius:20px; padding:22px 24px; margin-bottom:18px;
+  }
+  .stage-side h2{font-family:var(--serif); font-weight:560; font-size:20px; margin:0 0 4px}
+  .stage-side h3{font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--page-muted); margin:18px 0 8px; font-weight:600}
+  .stage-side p{margin:.4em 0; color:var(--page-muted); font-size:14px}
+  .stage-side .mood{font-family:var(--serif); font-style:italic; color:var(--page-ink); font-size:15px}
+  .swatch-row{display:flex; gap:8px; margin:10px 0 2px}
+  .swatch{flex:1; text-align:center; font-size:9.5px; color:var(--page-muted)}
+  .swatch i{display:block; height:34px; border-radius:9px; border:1px solid rgba(0,0,0,.1); margin-bottom:4px}
+  .hint{font-size:12.5px; color:var(--page-muted); display:flex; gap:8px; align-items:flex-start}
+  .hint svg{flex:none; margin-top:2px}
+
+  /* ============ Analyse-Sektion ============ */
+  .analysis{max-width:1080px; margin:64px auto 0}
+  .analysis h2{
+    font-family:var(--serif); font-weight:420; font-size:30px; text-align:center;
+    margin:0 0 6px; text-wrap:balance;
+  }
+  .analysis > p.lede{text-align:center; color:var(--page-muted); max-width:64ch; margin:0 auto 34px}
+  .principles{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-bottom:44px}
+  .principle{background:var(--page-card); border:1px solid var(--page-border); border-radius:18px; padding:18px 20px}
+  .principle b{font-family:var(--serif); font-weight:560; font-size:16.5px; display:block; margin-bottom:4px}
+  .principle p{margin:0; font-size:13.5px; color:var(--page-muted)}
+  .token-table{width:100%; border-collapse:collapse; font-size:13.5px; background:var(--page-card); border:1px solid var(--page-border); border-radius:16px; overflow:hidden}
+  .token-wrap{overflow-x:auto; border-radius:16px; margin-top:10px}
+  .token-table th, .token-table td{padding:10px 14px; text-align:left; border-bottom:1px solid var(--page-border)}
+  .token-table th{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--page-muted)}
+  .token-table tr:last-child td{border-bottom:0}
+  .token-table code{font-size:12.5px; background:transparent}
+  .chipdot{display:inline-block; width:11px; height:11px; border-radius:3px; border:1px solid rgba(0,0,0,.15); vertical-align:-1px; margin-right:6px}
+
+  /* ============ Telefon ============ */
+  .phone-wrap{flex:0 0 auto; position:sticky; top:24px}
+  @media (max-width:900px){ .phone-wrap{position:static} }
+  .phone{
+    width:393px; height:832px; border-radius:52px; position:relative;
+    background:var(--bg); color:var(--ink);
+    border:10px solid #17140f; box-shadow:0 24px 70px -18px rgba(20,16,8,.45), 0 0 0 1.5px rgba(255,255,255,.06) inset;
+    overflow:hidden; font-size:14.5px;
+    transition:background .35s;
+  }
+  @media (max-width:440px){
+    .phone{width:100%; max-width:393px; height:790px}
+  }
+  .island{
+    position:absolute; top:12px; left:50%; transform:translateX(-50%);
+    width:112px; height:30px; border-radius:20px; background:#17140f; z-index:60;
+  }
+  .statusbar{
+    position:absolute; top:0; left:0; right:0; height:52px; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 30px 0; font-size:13px; font-weight:600; color:var(--ink);
+    pointer-events:none;
+  }
+  .statusbar .right{display:flex; gap:5px; align-items:center}
+
+  /* ---- Palette-Tokens im Telefon ---- */
+  .phone{ /* Default: Sahara Sage */
+    --bg:#f4f1e8; --card:#fffdf7; --ink:#2a3428; --muted:#71796b;
+    --primary:#3e5c47; --primary-ink:#f7f5ec;
+    --accent:#6b8f6e; --soft:#e5e7d4; --pale:#a7b49b;
+    --border:rgba(42,52,40,.13);
+    --hero:#e9e9d8; --hero-photo:url("assets/hero-sage.webp");
+    --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'%3E%3Cg fill='none' stroke='%233e5c47' stroke-opacity='.16'%3E%3Crect x='15' y='15' width='22' height='22'/%3E%3Crect x='15' y='15' width='22' height='22' transform='rotate(45 26 26)'/%3E%3C/g%3E%3C/svg%3E");
+    --shadow:0 10px 26px -12px rgba(62,92,71,.35);
+  }
+  .phone[data-palette="clay"]{
+    --bg:#fdf3e6; --card:#fffaf2; --ink:#3b2a20; --muted:#8a7263;
+    --primary:#873e23; --primary-ink:#fdf3e6;
+    --accent:#c65b3d; --soft:#f8dcc0; --pale:#e69a7b;
+    --border:rgba(59,42,32,.13);
+    --hero:#f6e3cb; --hero-photo:url("assets/hero-clay.webp");
+    --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'%3E%3Cg fill='none' stroke='%23873e23' stroke-opacity='.15'%3E%3Crect x='15' y='15' width='22' height='22'/%3E%3Crect x='15' y='15' width='22' height='22' transform='rotate(45 26 26)'/%3E%3C/g%3E%3C/svg%3E");
+    --shadow:0 10px 26px -12px rgba(135,62,35,.35);
+  }
+  .phone[data-palette="lagoon"]{
+    --bg:#e9f5f2; --card:#fbfefd; --ink:#16342f; --muted:#5b7f79;
+    --primary:#124e4a; --primary-ink:#e9f5f2;
+    --accent:#2e7d76; --soft:#bce3db; --pale:#68b8b1;
+    --border:rgba(22,52,47,.13);
+    --hero:#d6ece7; --hero-photo:url("assets/hero-lagoon.webp");
+    --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'%3E%3Cg fill='none' stroke='%23124e4a' stroke-opacity='.15'%3E%3Crect x='15' y='15' width='22' height='22'/%3E%3Crect x='15' y='15' width='22' height='22' transform='rotate(45 26 26)'/%3E%3C/g%3E%3C/svg%3E");
+    --shadow:0 10px 26px -12px rgba(18,78,74,.32);
+  }
+  .phone[data-palette="sand"]{
+    --bg:#fbf6ee; --card:#fffcf5; --ink:#3a2e1e; --muted:#8a7a5f;
+    --primary:#7a5e3a; --primary-ink:#fbf6ee;
+    --accent:#b08a5b; --soft:#eadcc6; --pale:#d2b48c;
+    --border:rgba(58,46,30,.13);
+    --hero:#f1e6d1; --hero-photo:url("assets/hero-sand.webp");
+    --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'%3E%3Cg fill='none' stroke='%237a5e3a' stroke-opacity='.15'%3E%3Crect x='15' y='15' width='22' height='22'/%3E%3Crect x='15' y='15' width='22' height='22' transform='rotate(45 26 26)'/%3E%3C/g%3E%3C/svg%3E");
+    --shadow:0 10px 26px -12px rgba(122,94,58,.32);
+  }
+  .phone[data-palette="night"]{
+    --bg:#1e1530; --card:#2d2344; --ink:#f3efeb; --muted:#c8bdb0;
+    --primary:#a794d6; --primary-ink:#1e1530;
+    --accent:#8b7bb8; --soft:#3c2f4a; --pale:#57487a;
+    --border:rgba(243,239,235,.14);
+    --hero:#332850; --hero-photo:url("assets/hero-night.webp");
+    --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'%3E%3Cg fill='none' stroke='%23f3efeb' stroke-opacity='.10'%3E%3Crect x='15' y='15' width='22' height='22'/%3E%3Crect x='15' y='15' width='22' height='22' transform='rotate(45 26 26)'/%3E%3C/g%3E%3C/svg%3E");
+    --shadow:0 10px 26px -12px rgba(0,0,0,.55);
+  }
+
+  /* ---- Screens ---- */
+  .screens{position:absolute; inset:0}
+  .page{
+    position:absolute; inset:0; padding:64px 20px 108px; overflow-y:auto;
+    opacity:0; visibility:hidden; transform:translateY(8px);
+    transition:opacity .28s ease, transform .28s ease, visibility .28s;
+    scrollbar-width:none;
+  }
+  .page::-webkit-scrollbar{display:none}
+  .page.active{opacity:1; visibility:visible; transform:none}
+
+  .page h1{
+    font-family:var(--serif); font-weight:480; font-size:29px; letter-spacing:.005em;
+    margin:0; line-height:1.15;
+  }
+  .page .sub{color:var(--muted); font-size:13.5px; margin-top:3px}
+  .screen-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px}
+  .iconbtn{
+    width:38px; height:38px; border-radius:50%; display:grid; place-items:center;
+    background:var(--card); border:1px solid var(--border); color:var(--ink);
+  }
+
+  .card{
+    background:var(--card); border:1px solid var(--border);
+    border-radius:20px; box-shadow:var(--shadow);
+  }
+
+  /* Heute-Aufgabe */
+  .task{
+    display:flex; align-items:center; gap:12px; padding:14px 16px;
+    background:var(--soft); border-radius:20px; border:1px solid var(--border);
+    margin-bottom:16px;
+  }
+  .task .t-ic{width:38px;height:38px;border-radius:14px;background:var(--card);display:grid;place-items:center;color:var(--accent);flex:none}
+  .task b{font-weight:600; font-size:14px; display:block}
+  .task small{color:var(--muted); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:600}
+  .task .go{
+    margin-left:auto; width:34px; height:34px; border-radius:50%; flex:none;
+    background:var(--primary); color:var(--primary-ink); display:grid; place-items:center;
+  }
+
+  /* Marokkanischer Bogen */
+  .arch{border-radius:200px 200px 22px 22px; overflow:hidden}
+  .hero{
+    position:relative; height:250px; margin:0 auto 18px; width:78%;
+    background:var(--hero); border:1px solid var(--border);
+    display:grid; place-items:end center; box-shadow:var(--shadow);
+  }
+  .hero::before{content:""; position:absolute; inset:0; background-image:var(--pattern)}
+  .hero svg{position:relative; width:74%; height:auto; margin-bottom:-2px}
+  /* Foto-Hero (nur Home-Oase): echtes Pflanzenfoto pro Farbwelt */
+  #hero-arch{background-image:var(--hero-photo); background-size:cover; background-position:center 42%; width:82%; height:270px}
+  #hero-arch::before{display:none}
+  #hero-arch svg{display:none}
+  /* Echte Fotos in Kacheln/Listings/Stories/Feed/Detail/Scanner */
+  .ptile .pimg img,.listing .limg img,.story .ring img,.post .pimg img,.result .rimg img,.dhero img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .post .pimg:has(img)::before{display:none}
+  .result .rimg::before{display:none}
+  .dhero img{position:absolute; inset:0}
+  .dhero:has(img)::before{display:none}
+
+  /* Level/Statistik */
+  .stats{padding:16px 18px; margin-bottom:20px; box-shadow:var(--shadow)}
+  .stats .row1{display:flex; justify-content:space-between; align-items:baseline}
+  .stats .lvl{font-family:var(--serif); font-size:21px; font-weight:560}
+  .stats .streak{font-size:12.5px; color:var(--accent); font-weight:600}
+  .xpbar{height:7px; border-radius:99px; background:var(--soft); margin:10px 0 6px; overflow:hidden}
+  .xpbar i{display:block; height:100%; width:64%; border-radius:99px; background:var(--accent)}
+  .stats small{color:var(--muted); font-size:11.5px}
+
+  .sectionrow{display:flex; justify-content:space-between; align-items:baseline; margin:4px 0 12px}
+  .sectionrow b{font-weight:600; font-size:15.5px}
+  .sectionrow button{color:var(--accent); font-size:12.5px; font-weight:600}
+
+  .plantgrid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:11px}
+  .ptile{
+    background:var(--card); border:1px solid var(--border); border-radius:18px;
+    padding:10px 8px 12px; text-align:center; transition:transform .15s;
+  }
+  .ptile:hover{transform:translateY(-2px)}
+  .ptile .pimg{
+    background:var(--hero); border:1px solid var(--border);
+    border-radius:120px 120px 14px 14px; height:86px;
+    display:grid; place-items:end center; margin-bottom:8px; overflow:hidden;
+  }
+  .ptile .pimg svg{width:72%; margin-bottom:-1px}
+  .ptile b{display:block; font-size:12px; font-weight:600; line-height:1.25}
+  .ptile small{color:var(--muted); font-size:10.5px}
+
+  /* Segmented */
+  .seg{display:flex; background:var(--soft); border-radius:999px; padding:4px; margin-bottom:16px; border:1px solid var(--border)}
+  .seg button{
+    flex:1; padding:8px 0; border-radius:999px; font-size:13px; font-weight:600;
+    color:var(--muted); transition:background .2s,color .2s;
+  }
+  .seg button[aria-pressed="true"]{background:var(--card); color:var(--ink); box-shadow:0 2px 8px -3px rgba(0,0,0,.2)}
+
+  /* Stories */
+  .stories{display:flex; gap:13px; overflow-x:auto; padding:2px 2px 6px; margin-bottom:14px; scrollbar-width:none}
+  .stories::-webkit-scrollbar{display:none}
+  .story{flex:none; width:64px; text-align:center}
+  .story .ring{
+    width:60px; height:66px; border-radius:99px 99px 16px 16px; padding:3px;
+    border:2px solid var(--accent); background:var(--card);
+    display:grid; place-items:end center; overflow:hidden;
+  }
+  .story .ring svg{width:78%; margin-bottom:-1px}
+  .story small{font-size:10px; color:var(--muted); display:block; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+  /* Feed-Posts */
+  .post{padding:15px 16px; margin-bottom:13px}
+  .post .phead{display:flex; align-items:center; gap:10px; margin-bottom:9px}
+  .avatar{
+    width:34px; height:34px; border-radius:12px 12px 10px 10px; flex:none;
+    background:var(--soft); color:var(--primary); display:grid; place-items:center;
+    font-family:var(--serif); font-weight:560; font-size:14px; border:1px solid var(--border);
+  }
+  .post .phead b{font-size:13px; font-weight:600; display:block; line-height:1.2}
+  .post .phead small{color:var(--muted); font-size:11px}
+  .post .badge{
+    margin-left:auto; font-size:10px; font-weight:600; letter-spacing:.06em;
+    background:var(--soft); color:var(--accent); border-radius:99px; padding:4px 9px;
+  }
+  .post p{margin:0; font-size:13.5px}
+  .post .pimg{height:130px; margin-top:11px; background:var(--hero); border:1px solid var(--border); border-radius:16px; display:grid; place-items:end center; overflow:hidden; position:relative}
+  .post .pimg::before{content:""; position:absolute; inset:0; background-image:var(--pattern); opacity:.5}
+  .post .pimg svg{width:34%; position:relative}
+  .post .actions{display:flex; gap:16px; margin-top:11px; color:var(--muted); font-size:12px; font-weight:600}
+  .post .actions span{display:flex; align-items:center; gap:5px}
+
+  /* Karte / Nearby */
+  .map{
+    height:190px; border-radius:20px; position:relative; overflow:hidden;
+    background:var(--hero); border:1px solid var(--border); margin-bottom:14px;
+  }
+  .map::before{content:""; position:absolute; inset:0; background-image:var(--pattern)}
+  .map .ring2{position:absolute; left:50%; top:50%; width:130px; height:130px; border:1.5px dashed var(--accent); border-radius:50%; transform:translate(-50%,-50%); opacity:.7}
+  .pin{position:absolute; width:30px; height:30px; border-radius:11px 11px 9px 9px; background:var(--card); border:2px solid var(--accent); display:grid; place-items:center; font-size:12px; font-family:var(--serif); color:var(--primary)}
+  .pin.me{background:var(--primary); color:var(--primary-ink); border-color:var(--primary)}
+  .slider{display:flex; align-items:center; gap:12px; margin-bottom:14px; font-size:12.5px; color:var(--muted)}
+  .slider .track{flex:1; height:5px; border-radius:99px; background:var(--soft); position:relative}
+  .slider .track i{position:absolute; left:0; top:0; bottom:0; width:42%; background:var(--accent); border-radius:99px}
+  .slider .track b{position:absolute; left:42%; top:50%; width:18px; height:18px; border-radius:50%; background:var(--card); border:2px solid var(--accent); transform:translate(-50%,-50%)}
+  .frq{display:flex; align-items:center; gap:10px; padding:13px 14px; margin-bottom:12px}
+  .frq .grow{flex:1; min-width:0}
+  .frq b{font-size:13px; display:block}
+  .frq small{color:var(--muted); font-size:11px}
+  .btn-s{padding:8px 13px; border-radius:99px; font-size:12px; font-weight:600}
+  .btn-s.fill{background:var(--primary); color:var(--primary-ink)}
+  .btn-s.ghost{border:1.5px solid var(--border); color:var(--muted)}
+
+  /* Markt */
+  .search{
+    display:flex; align-items:center; gap:9px; background:var(--card);
+    border:1px solid var(--border); border-radius:999px; padding:11px 16px;
+    color:var(--muted); font-size:13.5px; margin-bottom:13px;
+  }
+  .chips{display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:none; padding:7px 14px; border-radius:999px; font-size:12.5px; font-weight:600;
+    background:var(--card); border:1px solid var(--border); color:var(--muted);
+  }
+  .chip.on{background:var(--primary); border-color:var(--primary); color:var(--primary-ink)}
+  .listings{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .listing{overflow:hidden; padding:0}
+  .listing .limg{height:118px; background:var(--hero); border-bottom:1px solid var(--border); border-radius:130px 130px 0 0; margin:8px 8px 0; display:grid; place-items:end center; position:relative; overflow:hidden}
+  .listing .limg svg{width:62%; margin-bottom:-1px}
+  .listing .fav{position:absolute; top:8px; right:8px; width:28px; height:28px; border-radius:50%; background:var(--card); display:grid; place-items:center; color:var(--muted); border:1px solid var(--border)}
+  .listing .lbody{padding:10px 12px 12px}
+  .listing b{font-size:13px; font-weight:600; display:block; line-height:1.25}
+  .listing .lat{font-style:italic; color:var(--muted); font-size:11px; font-family:var(--serif)}
+  .listing .price{display:flex; align-items:center; justify-content:space-between; margin-top:7px}
+  .listing .price b{font-family:var(--serif); font-size:15px; color:var(--primary)}
+  .listing .tag{font-size:9.5px; font-weight:700; letter-spacing:.05em; padding:3px 8px; border-radius:99px; background:var(--soft); color:var(--accent); text-transform:uppercase}
+  .pillbtn{
+    display:inline-flex; align-items:center; gap:6px; background:var(--primary);
+    color:var(--primary-ink); padding:9px 15px; border-radius:999px;
+    font-size:12.5px; font-weight:600;
+  }
+
+  /* Scanner */
+  .page.scanner{padding:0; background:#141210}
+  .phone[data-palette="night"] .page.scanner{background:#120c1e}
+  .scan-view{position:absolute; inset:0; display:flex; flex-direction:column; color:#f5f2ea}
+  .scan-cam{
+    flex:1; position:relative; overflow:hidden;
+    background:
+      radial-gradient(140% 90% at 50% 110%, rgba(107,143,110,.35), transparent 60%),
+      linear-gradient(180deg, #1d1b16 0%, #23211a 55%, #191712 100%);
+  }
+  .phone[data-palette="night"] .scan-cam{background:radial-gradient(140% 90% at 50% 110%, rgba(139,123,184,.3), transparent 60%),linear-gradient(180deg,#1a1329,#221a35 55%,#150f24)}
+  .scan-cam .ghostplant{position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:220px; opacity:.55; filter:blur(.4px)}
+  .scan-head{position:absolute; top:60px; left:22px; right:22px; display:flex; justify-content:space-between; align-items:flex-start; z-index:5}
+  .scan-head h1{font-size:24px; color:#f5f2ea; text-shadow:0 2px 12px rgba(0,0,0,.5)}
+  .scan-head .sub{color:rgba(245,242,234,.75)}
+  .scan-head .iconbtn{background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.2); color:#f5f2ea; backdrop-filter:blur(6px)}
+  .reticle{position:absolute; left:50%; top:46%; width:230px; height:230px; transform:translate(-50%,-50%)}
+  .reticle i{position:absolute; width:38px; height:38px; border:3px solid rgba(245,242,234,.95); border-radius:3px}
+  .reticle i:nth-child(1){top:0;left:0;border-right:0;border-bottom:0;border-top-left-radius:18px}
+  .reticle i:nth-child(2){top:0;right:0;border-left:0;border-bottom:0;border-top-right-radius:18px}
+  .reticle i:nth-child(3){bottom:0;left:0;border-right:0;border-top:0;border-bottom-left-radius:18px}
+  .reticle i:nth-child(4){bottom:0;right:0;border-left:0;border-top:0;border-bottom-right-radius:18px}
+  .scanline{position:absolute; left:8%; right:8%; top:20%; height:2px; background:linear-gradient(90deg,transparent,rgba(245,242,234,.9),transparent); animation:scan 2.4s ease-in-out infinite; border-radius:99px}
+  @keyframes scan{0%,100%{top:14%}50%{top:82%}}
+  .scan-controls{position:absolute; bottom:0; left:0; right:0; padding:20px 34px 116px; display:flex; align-items:center; justify-content:space-between; z-index:5}
+  .scan-controls .side{width:46px; height:46px; border-radius:16px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); display:grid; place-items:center; color:#f5f2ea; backdrop-filter:blur(6px)}
+  .shutter{width:76px; height:76px; border-radius:50%; background:#f5f2ea; border:5px solid rgba(245,242,234,.35); display:grid; place-items:center; color:#2a3428; box-shadow:0 8px 30px rgba(0,0,0,.4); transition:transform .12s}
+  .shutter:active{transform:scale(.93)}
+  .scan-hint{position:absolute; bottom:208px; left:0; right:0; text-align:center; font-size:12px; color:rgba(245,242,234,.65); letter-spacing:.06em; z-index:5}
+
+  /* Scan-Ergebnis */
+  .result{position:absolute; inset:0; z-index:10; background:var(--bg); color:var(--ink); padding:64px 20px 40px; overflow-y:auto; scrollbar-width:none; display:none}
+  .result.show{display:block}
+  .result .rimg{width:66%; height:210px; margin:6px auto 16px; position:relative}
+  .match{
+    position:absolute; top:12px; left:50%; transform:translateX(-50%);
+    background:var(--card); border:1px solid var(--border); color:var(--accent);
+    font-size:11.5px; font-weight:700; padding:5px 12px; border-radius:99px;
+    display:flex; gap:5px; align-items:center; box-shadow:var(--shadow); white-space:nowrap;
+  }
+  .result h1{text-align:center}
+  .result .lat{display:block; text-align:center; font-family:var(--serif); font-style:italic; color:var(--muted); font-size:14px; margin-top:2px}
+  .result .fam{display:block; text-align:center; color:var(--muted); font-size:12px; margin:4px 0 18px}
+  .care{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:20px}
+  .care .c{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:12px 8px; text-align:center}
+  .care .c svg{color:var(--accent); margin-bottom:5px}
+  .care .c b{display:block; font-size:11.5px; font-weight:600}
+  .care .c small{color:var(--muted); font-size:10.5px}
+  .cta{display:block; width:100%; text-align:center; padding:14px; border-radius:999px; font-weight:600; font-size:14.5px; margin-bottom:10px}
+  .cta.fill{background:var(--primary); color:var(--primary-ink); box-shadow:var(--shadow)}
+  .cta.line{border:1.5px solid var(--border); color:var(--ink)}
+  .cta.quiet{color:var(--muted); font-size:13px}
+
+  /* Profil */
+  .profile-card{padding:22px 18px; text-align:center; margin-bottom:18px}
+  .profile-card .avatar{width:76px; height:76px; margin:0 auto 10px; font-size:28px; border-radius:99px 99px 26px 26px; border:2px solid var(--accent)}
+  .profile-card h2{font-family:var(--serif); font-weight:560; font-size:21px; margin:0}
+  .profile-card .mail{color:var(--muted); font-size:12px}
+  .lvlchip{display:inline-flex; align-items:center; gap:6px; margin-top:8px; background:var(--soft); color:var(--primary); font-size:12px; font-weight:600; padding:5px 12px; border-radius:99px}
+  .pstats{display:flex; margin-top:16px; border-top:1px solid var(--border); padding-top:14px}
+  .pstats div{flex:1}
+  .pstats b{font-family:var(--serif); font-size:18px; display:block}
+  .pstats small{color:var(--muted); font-size:11px}
+  .menu{padding:4px 0; margin-bottom:14px}
+  .menu .mlabel{font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; padding:12px 16px 4px}
+  .mitem{display:flex; align-items:center; gap:12px; width:100%; padding:12px 16px; font-size:14px; font-weight:500; text-align:left}
+  .mitem + .mitem{border-top:1px solid var(--border)}
+  .mitem .mi{width:32px; height:32px; border-radius:11px; background:var(--soft); color:var(--accent); display:grid; place-items:center; flex:none}
+  .mitem .chev{margin-left:auto; color:var(--muted)}
+  .logout{width:100%; text-align:center; padding:13px; border-radius:999px; border:1.5px solid rgba(200,60,50,.4); color:#b5453a; font-weight:600; font-size:14px}
+  .phone[data-palette="night"] .logout{color:#e8998f; border-color:rgba(232,153,143,.4)}
+  .vfoot{text-align:center; color:var(--muted); font-size:11px; margin-top:14px}
+
+  /* Detail */
+  .page.detail{padding:0}
+  .dhero{
+    position:relative; height:330px; background:var(--hero);
+    border-radius:0 0 34px 34px; display:grid; place-items:end center; overflow:hidden;
+    border-bottom:1px solid var(--border);
+  }
+  .dhero::before{content:""; position:absolute; inset:0; background-image:var(--pattern)}
+  .dhero svg{width:56%; position:relative; margin-bottom:-2px}
+  .dhero .back{position:absolute; top:62px; left:18px; z-index:5}
+  .dbody{padding:20px 20px 110px}
+  .dtitle{display:flex; justify-content:space-between; align-items:flex-start}
+  .dtitle .lat{font-family:var(--serif); font-style:italic; color:var(--muted); font-size:13.5px}
+  .famchip{display:inline-flex; gap:6px; align-items:center; background:var(--soft); color:var(--primary); font-size:11.5px; font-weight:600; padding:5px 11px; border-radius:99px; margin-top:8px}
+  .water{display:flex; align-items:center; gap:14px; padding:15px 16px; margin:16px 0}
+  .water .grow{flex:1}
+  .water b{display:block; font-size:14px}
+  .water small{color:var(--muted); font-size:12px}
+  .health{width:46px; height:46px; border-radius:50%; flex:none; display:grid; place-items:center; font-size:11.5px; font-weight:700; color:var(--primary); background:conic-gradient(var(--accent) 0 92%, var(--soft) 92% 100%); position:relative}
+  .health i{position:absolute; inset:4px; background:var(--card); border-radius:50%}
+  .health span{position:relative}
+  .steck{padding:4px 0; margin-top:16px}
+  .steck .mlabel{font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; padding:12px 16px 4px}
+  .srow{display:flex; gap:12px; padding:11px 16px; align-items:center; font-size:13px}
+  .srow + .srow{border-top:1px solid var(--border)}
+  .srow svg{color:var(--accent); flex:none}
+  .srow small{display:block; color:var(--muted); font-size:11px}
+  .showall{width:100%; text-align:center; color:var(--accent); font-weight:600; font-size:12.5px; padding:11px}
+
+  /* Bottom-Nav */
+  .bottomnav{
+    position:absolute; bottom:0; left:0; right:0; z-index:40;
+    background:color-mix(in srgb, var(--card) 92%, transparent);
+    backdrop-filter:blur(10px);
+    border-top:1px solid var(--border);
+    display:flex; align-items:flex-end; justify-content:space-around;
+    padding:10px 8px 24px;
+  }
+  .nitem{display:flex; flex-direction:column; align-items:center; gap:4px; font-size:9.5px; font-weight:600; color:var(--muted); min-width:58px; transition:color .2s}
+  .nitem.on{color:var(--primary)}
+  .nitem.center{margin-top:-30px}
+  .nitem.center .fab{
+    width:54px; height:54px; border-radius:50%; background:var(--primary); color:var(--primary-ink);
+    display:grid; place-items:center; box-shadow:var(--shadow); border:4px solid var(--bg);
+    transition:transform .15s;
+  }
+  .nitem.center:hover .fab{transform:scale(1.06)}
+
+  /* ============ Marokko-Strip (Details & Elemente) ============ */
+  .oriental-strip{max-width:1080px; margin:64px auto 0; text-align:center}
+  .oriental-strip h2{font-family:var(--serif); font-weight:420; font-size:30px; margin:0 0 6px; text-wrap:balance}
+  .oriental-strip > p.lede{color:var(--page-muted); max-width:64ch; margin:0 auto 26px}
+  .ostrip{display:grid; gap:14px}
+  .ostrip figure{margin:0; position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--page-border)}
+  .ostrip img{width:100%; height:100%; object-fit:cover; display:block}
+  .ostrip figcaption{
+    position:absolute; left:13px; bottom:11px; color:#fff; font-size:12.5px; font-weight:600;
+    letter-spacing:.02em; text-shadow:0 1px 8px rgba(0,0,0,.55);
+  }
+  .ostrip .banner{height:220px}
+  .o-row{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; grid-auto-rows:210px}
+  @media (max-width:720px){ .o-row{grid-template-columns:1fr} .ostrip .banner{height:180px} }
+
+  footer.credits{text-align:center; color:var(--page-muted); font-size:12px; margin-top:60px}
+</style>
+
+<!-- ============ Pflanzen-Symbolbibliothek (handgezeichneter Stil) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="pot">
+      <path d="M30 82 L70 82 L65 112 Q50 116 35 112 Z" fill="var(--pot,#c07a54)"/>
+      <rect x="27" y="78" width="46" height="8" rx="4" fill="var(--pot2,#a8663f)"/>
+      <path d="M36 92 l6 6 m8 -6 l6 6 m8 -6 l6 6 M42 90 l-6 6 m20 -6 l-6 6 m20 -6 l-6 6" stroke="var(--potdeco,rgba(255,255,255,.35))" stroke-width="1.4" fill="none"/>
+    </g>
+    <g id="p-tree" stroke-linecap="round">
+      <path d="M50 80 Q49 58 47 45 M48 58 Q40 52 34 50 M48 50 Q57 45 63 42" stroke="var(--stem,#7a5f43)" stroke-width="3" fill="none"/>
+      <ellipse cx="33" cy="40" rx="14" ry="12" fill="var(--leaf,#5c7d5e)"/>
+      <ellipse cx="63" cy="33" rx="15" ry="13" fill="var(--leaf,#5c7d5e)"/>
+      <ellipse cx="47" cy="24" rx="16" ry="14" fill="var(--leaf2,#6f936f)"/>
+      <circle cx="34" cy="44" r="3" fill="var(--berry,transparent)"/>
+      <circle cx="61" cy="37" r="3" fill="var(--berry,transparent)"/>
+      <circle cx="45" cy="28" r="3" fill="var(--berry,transparent)"/>
+    </g>
+    <g id="p-monstera" stroke-linecap="round">
+      <path d="M50 80 Q48 60 42 44 M50 80 Q54 58 60 40 M50 80 Q50 62 50 30" stroke="var(--stem,#3f6b4a)" stroke-width="3" fill="none"/>
+      <ellipse cx="38" cy="36" rx="15" ry="13" fill="var(--leaf,#3f6b4a)" transform="rotate(-18 38 36)"/>
+      <ellipse cx="63" cy="32" rx="15" ry="13" fill="var(--leaf,#3f6b4a)" transform="rotate(15 63 32)"/>
+      <ellipse cx="50" cy="20" rx="15" ry="13" fill="var(--leaf2,#548a5f)"/>
+      <path d="M30 33 l10 4 M32 42 l9 -1 M56 25 l10 5 M58 37 l10 -2 M43 16 l8 5 M50 12 l0 10" stroke="var(--slit,#e9e9d8)" stroke-width="2.2" fill="none"/>
+    </g>
+    <g id="p-palm" stroke-linecap="round" fill="none">
+      <path d="M50 82 Q50 60 50 46" stroke="var(--stem,#8a6a45)" stroke-width="4"/>
+      <path d="M50 46 Q30 40 18 46 M50 46 Q70 40 82 46 M50 46 Q34 28 24 26 M50 46 Q66 28 76 26 M50 46 Q48 24 50 14" stroke="var(--leaf,#4c7a54)" stroke-width="5"/>
+      <path d="M50 46 Q40 34 32 34 M50 46 Q60 34 68 34" stroke="var(--leaf2,#639468)" stroke-width="4"/>
+    </g>
+    <g id="p-lavender" stroke-linecap="round">
+      <path d="M38 80 Q36 56 34 40 M50 80 Q50 52 50 32 M62 80 Q64 56 66 40 M44 80 Q43 62 40 52 M56 80 Q58 62 60 52" stroke="var(--stem,#5e7a58)" stroke-width="2.4" fill="none"/>
+      <ellipse cx="34" cy="34" rx="5" ry="10" fill="var(--leaf,#8d7ab5)"/>
+      <ellipse cx="50" cy="24" rx="5" ry="11" fill="var(--leaf,#8d7ab5)"/>
+      <ellipse cx="66" cy="34" rx="5" ry="10" fill="var(--leaf,#8d7ab5)"/>
+      <ellipse cx="40" cy="46" rx="4" ry="8" fill="var(--leaf2,#a493c9)"/>
+      <ellipse cx="60" cy="46" rx="4" ry="8" fill="var(--leaf2,#a493c9)"/>
+    </g>
+    <g id="p-herb" stroke-linecap="round">
+      <path d="M42 80 Q38 62 34 52 M50 80 Q50 60 50 44 M58 80 Q62 62 66 52 M46 80 Q44 68 41 62 M54 80 Q56 68 59 62" stroke="var(--stem,#4c7a54)" stroke-width="2.4" fill="none"/>
+      <ellipse cx="33" cy="47" rx="6" ry="4.5" fill="var(--leaf,#4c7a54)"/>
+      <ellipse cx="50" cy="38" rx="7" ry="5" fill="var(--leaf,#4c7a54)"/>
+      <ellipse cx="67" cy="47" rx="6" ry="4.5" fill="var(--leaf,#4c7a54)"/>
+      <ellipse cx="40" cy="57" rx="6" ry="4.5" fill="var(--leaf2,#639468)"/>
+      <ellipse cx="60" cy="57" rx="6" ry="4.5" fill="var(--leaf2,#639468)"/>
+      <ellipse cx="50" cy="28" rx="5.5" ry="4.5" fill="var(--leaf2,#639468)"/>
+    </g>
+    <g id="p-aloe">
+      <path d="M50 82 Q44 50 46 26 Q52 44 54 82 Z" fill="var(--leaf,#5c8a63)"/>
+      <path d="M46 82 Q32 58 24 40 Q42 56 50 82 Z" fill="var(--leaf2,#6f9e74)"/>
+      <path d="M54 82 Q68 58 76 40 Q58 56 50 82 Z" fill="var(--leaf2,#6f9e74)"/>
+      <path d="M42 82 Q28 70 18 62 Q36 70 46 82 Z" fill="var(--leaf,#5c8a63)"/>
+      <path d="M58 82 Q72 70 82 62 Q64 70 54 82 Z" fill="var(--leaf,#5c8a63)"/>
+    </g>
+    <g id="p-cactus">
+      <rect x="41" y="30" width="18" height="52" rx="9" fill="var(--leaf,#57855c)"/>
+      <path d="M41 52 Q26 52 26 40 Q26 34 30 34 Q34 34 34 40 Q34 45 43 45" fill="var(--leaf2,#6a9a6e)"/>
+      <path d="M59 60 Q74 60 74 46 Q74 40 70 40 Q66 40 66 46 Q66 52 57 52" fill="var(--leaf2,#6a9a6e)"/>
+      <path d="M46 36 v40 M54 36 v40" stroke="var(--slit,rgba(255,255,255,.3))" stroke-width="1.6"/>
+      <circle cx="50" cy="27" r="5" fill="var(--berry,#c65b3d)"/>
+    </g>
+    <g id="p-fern" fill="none" stroke-linecap="round">
+      <path d="M50 82 Q46 56 36 36 M50 82 Q54 56 64 36 M50 82 Q50 54 50 28 M50 82 Q42 68 28 56 M50 82 Q58 68 72 56"
+        stroke="var(--leaf,#4c7a54)" stroke-width="3.4"/>
+      <path d="M44 58 l-7 -3 M46 48 l-7 -4 M56 58 l7 -3 M54 48 l7 -4 M47 44 l-6 1 M53 44 l6 1"
+        stroke="var(--leaf2,#639468)" stroke-width="2.4"/>
+    </g>
+    <g id="p-snake">
+      <path d="M44 82 Q38 50 44 24 Q48 50 48 82 Z" fill="var(--leaf,#4f7a58)"/>
+      <path d="M52 82 Q52 46 58 20 Q62 50 56 82 Z" fill="var(--leaf2,#6b976f)"/>
+      <path d="M38 82 Q30 60 32 42 Q40 62 42 82 Z" fill="var(--leaf2,#6b976f)"/>
+      <path d="M60 82 Q70 62 68 44 Q60 64 58 82 Z" fill="var(--leaf,#4f7a58)"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="studio">
+  <header class="studio-header">
+    <div class="eyebrow">Floralis · Designstudie 07/2026</div>
+    <h1 class="title">Oriental Oase</h1>
+    <p>Ruhig · Natürlich · Exotisch — fünf Farbwelten, ein durchklickbarer Prototyp der echten App-Struktur. Palette wählen, unten durch die Tabs navigieren, in der Oase eine Pflanze antippen.</p>
+  </header>
+
+  <div class="palette-bar" role="group" aria-label="Farbwelt wählen">
+    <button class="pchip" data-p="sage" aria-pressed="true">
+      <span class="dots"><i style="background:#f2efe7"></i><i style="background:#a7b49b"></i><i style="background:#3e5c47"></i></span>
+      <span><b>Sahara Sage</b><small>erdig · ruhig · natürlich</small></span>
+    </button>
+    <button class="pchip" data-p="clay" aria-pressed="false">
+      <span class="dots"><i style="background:#fff3e7"></i><i style="background:#e69a7b"></i><i style="background:#873e23"></i></span>
+      <span><b>Marrakech Clay</b><small>warm · sonnig · einladend</small></span>
+    </button>
+    <button class="pchip" data-p="lagoon" aria-pressed="false">
+      <span class="dots"><i style="background:#e6f4f1"></i><i style="background:#68b8b1"></i><i style="background:#124e4a"></i></span>
+      <span><b>Oasis Lagoon</b><small>frisch · klar · belebend</small></span>
+    </button>
+    <button class="pchip" data-p="sand" aria-pressed="false">
+      <span class="dots"><i style="background:#fbf6ee"></i><i style="background:#d2b48c"></i><i style="background:#7a5e3a"></i></span>
+      <span><b>Desert Sand</b><small>weich · warm · harmonisch</small></span>
+    </button>
+    <button class="pchip" data-p="night" aria-pressed="false">
+      <span class="dots"><i style="background:#3c2f4a"></i><i style="background:#8b7bb8"></i><i style="background:#1e1530"></i></span>
+      <span><b>Night in Marrakech</b><small>tief · mystisch · elegant</small></span>
+    </button>
+  </div>
+
+  <div class="stage">
+    <!-- ==================== TELEFON ==================== -->
+    <div class="phone-wrap">
+      <div class="phone" data-palette="sage" id="phone">
+        <div class="island"></div>
+        <div class="statusbar"><span>9:41</span><span class="right">
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="4.5" width="3" height="6.5" rx="1"/><rect x="9" y="2" width="3" height="9" rx="1"/><rect x="13" y="0" width="3" height="11" rx="1" opacity=".4"/></svg>
+          <svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="14" height="8" rx="2" fill="currentColor"/><path d="M22.5 4 v4 a2 2 0 0 0 0 -4" fill="currentColor" opacity=".5"/></svg>
+        </span></div>
+
+        <div class="screens">
+
+          <!-- ========== OASE (Home) ========== -->
+          <section class="page active" id="pg-oase">
+            <div class="screen-head">
+              <div>
+                <h1 id="greet">Salam&ensp;🌿</h1>
+                <div class="sub" id="greet-sub">Deine Pflanzen, deine Oase.</div>
+              </div>
+              <button class="iconbtn" aria-label="Benachrichtigungen">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+              </button>
+            </div>
+
+            <div class="task">
+              <div class="t-ic">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+              </div>
+              <div><small>Heute</small><b id="task-name">Olivenbaum gießen</b></div>
+              <button class="go" aria-label="Gießen starten">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+
+            <div class="hero arch" id="hero-arch">
+              <svg viewBox="0 0 100 120" id="hero-svg"><use href="#pot"/><use href="#p-tree" id="hero-plant"/></svg>
+            </div>
+
+            <div class="card stats">
+              <div class="row1"><span class="lvl">Level 7 · Gärtner</span><span class="streak">🔥 12 Tage Serie</span></div>
+              <div class="xpbar"><i></i></div>
+              <small>320 / 500 XP — noch 180 XP bis Level 8</small>
+            </div>
+
+            <div class="sectionrow"><b>Meine Pflanzen</b><button>Alle anzeigen</button></div>
+            <div class="plantgrid" id="plantgrid"></div>
+          </section>
+
+          <!-- ========== ENTDECKEN ========== -->
+          <section class="page" id="pg-entdecken">
+            <div class="screen-head">
+              <div><h1>Entdecken</h1><div class="sub">Was in deiner Community wächst</div></div>
+              <button class="iconbtn" aria-label="Benachrichtigungen">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+              </button>
+            </div>
+
+            <div class="seg" role="tablist">
+              <button id="seg-feed" aria-pressed="true">Feed</button>
+              <button id="seg-nearby" aria-pressed="false">In der Nähe</button>
+            </div>
+
+            <div id="feedview">
+              <div class="stories">
+                <div class="story"><div class="ring"><img src="assets/tiles/monstera.webp" alt=""></div><small>Lena 🌱</small></div>
+                <div class="story"><div class="ring"><img src="assets/tiles/palm.webp" alt=""></div><small>Samir</small></div>
+                <div class="story"><div class="ring"><img src="assets/tiles/lavender.webp" alt=""></div><small>Aylin</small></div>
+                <div class="story"><div class="ring"><img src="assets/tiles/fern.webp" alt=""></div><small>Jonas</small></div>
+                <div class="story"><div class="ring"><img src="assets/tiles/cactus.webp" alt=""></div><small>Mara</small></div>
+              </div>
+
+              <div class="card post">
+                <div class="phead">
+                  <div class="avatar">L</div>
+                  <div><b>Lena</b><small>Monstera-Freunde · vor 2 Std.</small></div>
+                  <span class="badge">Frage</span>
+                </div>
+                <p>Warum bekommt meine Monstera plötzlich gelbe Blätter? Steht hell, gieße einmal pro Woche … 🥲</p>
+                <div class="actions">
+                  <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg> 24</span>
+                  <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 12 Antworten</span>
+                </div>
+              </div>
+
+              <div class="card post">
+                <div class="phead">
+                  <div class="avatar">S</div>
+                  <div><b>Samir</b><small>Wachstums-Story · vor 5 Std.</small></div>
+                  <span class="badge">Story</span>
+                </div>
+                <p>6 Monate Geduld — meine Palme ist explodiert 🌴</p>
+                <div class="pimg"><img src="assets/tiles/palm.webp" alt=""></div>
+                <div class="actions">
+                  <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg> 87</span>
+                  <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 9</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="nearbyview" hidden>
+              <div class="map">
+                <span class="ring2"></span>
+                <span class="pin me" style="left:47%;top:44%">Du</span>
+                <span class="pin" style="left:29%;top:30%">A</span>
+                <span class="pin" style="left:64%;top:58%">J</span>
+                <span class="pin" style="left:70%;top:26%">M</span>
+              </div>
+              <div class="slider"><span>Umkreis</span><span class="track"><i></i><b></b></span><span><b>12&nbsp;km</b></span></div>
+              <div class="card frq">
+                <div class="avatar">A</div>
+                <div class="grow"><b>Aylin</b><small>Anfrage · 3 km</small></div>
+                <button class="btn-s fill">Annehmen</button>
+                <button class="btn-s ghost">Ablehnen</button>
+              </div>
+              <div class="card frq">
+                <div class="avatar">J</div>
+                <div class="grow"><b>Jonas</b><small>Freund · 5 km entfernt</small></div>
+                <button class="btn-s ghost">Profil</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== MARKT ========== -->
+          <section class="page" id="pg-markt">
+            <div class="screen-head">
+              <div><h1>Markt</h1><div class="sub">Pflanzen aus deiner Nachbarschaft</div></div>
+              <button class="pillbtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Anbieten</button>
+            </div>
+
+            <div class="search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              Pflanzen suchen …
+            </div>
+            <div class="chips">
+              <span class="chip on">Alle</span><span class="chip">❤️ Merkliste</span><span class="chip">🎁 Verschenken</span><span class="chip">🚑 Rette mich</span><span class="chip">Tropisch</span><span class="chip">Sukkulenten</span>
+            </div>
+
+            <div class="listings">
+              <div class="card listing">
+                <div class="limg"><img src="assets/tiles/monstera.webp" alt="">
+                  <span class="fav"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
+                </div>
+                <div class="lbody"><b>Monstera-Ableger</b><span class="lat">Monstera deliciosa</span>
+                  <div class="price"><b>12 €</b><span class="tag">3 km</span></div>
+                </div>
+              </div>
+              <div class="card listing">
+                <div class="limg"><img src="assets/tiles/aloe.webp" alt="">
+                  <span class="fav"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
+                </div>
+                <div class="lbody"><b>Aloe Vera, groß</b><span class="lat">Aloe barbadensis</span>
+                  <div class="price"><b>Geschenkt</b><span class="tag">🎁</span></div>
+                </div>
+              </div>
+              <div class="card listing">
+                <div class="limg"><img src="assets/tiles/fern.webp" alt="">
+                  <span class="fav"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
+                </div>
+                <div class="lbody"><b>Schwertfarn</b><span class="lat">Nephrolepis exaltata</span>
+                  <div class="price"><b>8 €</b><span class="tag">🚑 Rettung</span></div>
+                </div>
+              </div>
+              <div class="card listing">
+                <div class="limg"><img src="assets/tiles/cactus.webp" alt="">
+                  <span class="fav"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
+                </div>
+                <div class="lbody"><b>Feigenkaktus</b><span class="lat">Opuntia ficus-indica</span>
+                  <div class="price"><b>15 €</b><span class="tag">7 km</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== SCANNER ========== -->
+          <section class="page scanner" id="pg-scanner">
+            <div class="scan-view" id="scan-capture">
+              <div class="scan-cam">
+                <svg class="ghostplant" viewBox="0 0 100 120"><use href="#pot"/><use href="#p-monstera" style="--slit:rgba(0,0,0,.25)"/></svg>
+                <div class="scan-head">
+                  <div><h1>Scanner</h1><div class="sub">Richte die Kamera auf eine Pflanze</div></div>
+                  <button class="iconbtn" aria-label="Blitz">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                  </button>
+                </div>
+                <div class="reticle"><i></i><i></i><i></i><i></i><span class="scanline"></span></div>
+                <div class="scan-hint">Antippen zum Fokussieren · Auslöser für Demo-Ergebnis</div>
+                <div class="scan-controls">
+                  <button class="side" aria-label="Galerie">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4-4-9 9"/></svg>
+                  </button>
+                  <button class="shutter" id="shutter" aria-label="Foto aufnehmen">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3.5"/></svg>
+                  </button>
+                  <button class="side" aria-label="Kamera wechseln">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a9 9 0 0 1 15.5-4.5L21 6M21 16a9 9 0 0 1-15.5 4.5L3 18"/><path d="M21 2v4h-4M3 22v-4h4"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="result" id="scan-result">
+              <div class="rimg hero arch" style="height:210px; width:66%">
+                <img src="assets/tiles/monstera.webp" alt="">
+                <span class="match"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.8H21l-5.6 4 2.2 6.8-5.6-4.2-5.6 4.2 2.2-6.8L3 8.8h6.8z"/></svg>97 % Übereinstimmung</span>
+              </div>
+              <h1>Monstera</h1>
+              <span class="lat">Monstera deliciosa</span>
+              <span class="fam">Familie: Araceae — Aronstabgewächse</span>
+              <div class="care">
+                <div class="c">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                  <b>Licht</b><small>Hell, indirekt</small>
+                </div>
+                <div class="c">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                  <b>Wasser</b><small>Alle 7 Tage</small>
+                </div>
+                <div class="c">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4m0 4h.01"/></svg>
+                  <b>Toxizität</b><small>Giftig f. Haustiere</small>
+                </div>
+              </div>
+              <button class="cta fill">Zur Oase hinzufügen</button>
+              <button class="cta line">Community um Rat fragen</button>
+              <button class="cta quiet" id="rescan">↺ Neue Pflanze scannen</button>
+            </div>
+          </section>
+
+          <!-- ========== PROFIL ========== -->
+          <section class="page" id="pg-profil">
+            <div class="screen-head"><div><h1>Profil</h1></div></div>
+
+            <div class="card profile-card">
+              <div class="avatar">N</div>
+              <h2>Niklas</h2>
+              <div class="mail">niklas@floralis.app</div>
+              <span class="lvlchip">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.5 5.5-6"/></svg>
+                Level 7 Gärtner
+              </span>
+              <div class="pstats">
+                <div><b>128</b><small>Follower</small></div>
+                <div><b>86</b><small>Folge ich</small></div>
+                <div><b>1,2k</b><small>Ansichten</small></div>
+              </div>
+            </div>
+
+            <div class="card menu">
+              <div class="mlabel">Konto</div>
+              <button class="mitem"><span class="mi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Profil bearbeiten<span class="chev">›</span></button>
+              <button class="mitem"><span class="mi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>Verlauf<span class="chev">›</span></button>
+              <button class="mitem"><span class="mi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l2.6 6.6L21 9l-5 4.4L17.5 21 12 17.3 6.5 21 8 13.4 3 9l6.4-.4z"/></svg></span>Floralis Plus<span class="chev">›</span></button>
+            </div>
+
+            <div class="card menu">
+              <div class="mlabel">Community</div>
+              <button class="mitem"><span class="mi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Nachrichten<span class="chev">›</span></button>
+              <button class="mitem"><span class="mi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>Freunde<span class="chev">›</span></button>
+            </div>
+
+            <div class="card menu">
+              <div class="mlabel">Einstellungen</div>
+              <button class="mitem"><span class="mi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Datenschutz<span class="chev">›</span></button>
+              <button class="mitem"><span class="mi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></span>Rechtliches<span class="chev">›</span></button>
+              <button class="mitem"><span class="mi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4m0 3.5h.01"/></svg></span>Hilfe &amp; Support<span class="chev">›</span></button>
+            </div>
+
+            <button class="logout">Abmelden</button>
+            <div class="vfoot">Floralis v2.0 · Oriental Oase</div>
+          </section>
+
+          <!-- ========== PFLANZEN-DETAIL ========== -->
+          <section class="page detail" id="pg-detail">
+            <div class="dhero">
+              <button class="iconbtn back" id="back-oase" aria-label="Zurück">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+              </button>
+              <img id="detail-img" alt="">
+            </div>
+            <div class="dbody">
+              <div class="dtitle">
+                <div>
+                  <h1 id="detail-name">Olivenbaum</h1>
+                  <span class="lat" id="detail-lat">Olea europaea</span><br>
+                  <span class="famchip">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/></svg>
+                    <span id="detail-fam">Ölbaumgewächse</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="card water">
+                <div class="health"><i></i><span>92 %</span></div>
+                <div class="grow"><b>Gesund &amp; munter</b><small id="detail-water">In 2 Tagen gießen</small></div>
+                <button class="btn-s fill">Gießen&ensp;+10 XP</button>
+              </div>
+
+              <div class="sectionrow"><b>Pflege auf einen Blick</b></div>
+              <div class="care">
+                <div class="c">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                  <b>Licht</b><small>Vollsonne</small>
+                </div>
+                <div class="c">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                  <b>Gießen</b><small>Alle 10 Tage</small>
+                </div>
+                <div class="c">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4m0 4h.01"/></svg>
+                  <b>Toxizität</b><small>Unbedenklich</small>
+                </div>
+              </div>
+
+              <div class="card steck">
+                <div class="mlabel">Steckbrief</div>
+                <div class="srow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  <div><small>Wuchs</small>Langsam, bis 2 m im Kübel</div>
+                </div>
+                <div class="srow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4v10.5a4 4 0 1 1-4-4"/><path d="M14 4a2 2 0 1 0-4 0v6.5"/></svg>
+                  <div><small>Temperatur &amp; Frost</small>Bis −5 °C, im Winter geschützt</div>
+                </div>
+                <div class="srow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/></svg>
+                  <div><small>Dünger</small>April–September, alle 4 Wochen</div>
+                </div>
+                <button class="showall">Alle 7 Einträge anzeigen</button>
+              </div>
+
+              <button class="cta line" style="margin-top:16px">
+                ✂️&ensp;Ableger anbieten
+              </button>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ========== BOTTOM-NAV ========== -->
+        <nav class="bottomnav" aria-label="Hauptnavigation">
+          <button class="nitem" data-page="pg-entdecken">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+            Entdecken
+          </button>
+          <button class="nitem" data-page="pg-markt">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+            Markt
+          </button>
+          <button class="nitem center" data-page="pg-scanner" aria-label="Scanner">
+            <span class="fab">
+              <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></svg>
+            </span>
+            Scanner
+          </button>
+          <button class="nitem on" data-page="pg-oase">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V9m4.5 3a4.5 4.5 0 1 1-4.5 4.5m4.5-4.5H15m-7.5 0a4.5 4.5 0 1 0 4.5 4.5M7.5 12H9m3 4.5V15"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+            Oase
+          </button>
+          <button class="nitem" data-page="pg-profil">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Profil
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ==================== SEITEN-PANEL ==================== -->
+    <aside class="stage-side">
+      <div class="panel">
+        <h2 id="side-name">Sahara Sage</h2>
+        <p class="mood" id="side-mood">erdig · ruhig · natürlich</p>
+        <div class="swatch-row" id="side-swatches"></div>
+        <p id="side-note">Die ausgewogenste Welt: Salbeigrün auf warmem Elfenbein. Empfehlung als Standard-Theme (Light) — ruhig genug für tägliche Pflege-Routinen, grün genug für die Marke.</p>
+        <h3>Interaktion</h3>
+        <p class="hint">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11.2V4.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0 .5a1.5 1.5 0 0 1 3 0v3c0 4-2.5 6.5-6 6.5-3 0-4.6-1.3-6.5-4.5L4 13.7c-.7-1.1.6-2.4 1.8-1.7l2.2 1.5z"/></svg>
+          Unten durch die 5 Tabs klicken · in der Oase eine Pflanze antippen → Detailseite · im Scanner den Auslöser drücken → KI-Ergebnis · „Feed / In der Nähe" umschalten.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ==================== MAROKKO-STRIP ==================== -->
+  <section class="oriental-strip">
+    <h2>Details &amp; Elemente</h2>
+    <p class="lede">Die Bildsprache der Oase: marokkanische Architektur, Zellige-Muster und warme Texturen bilden die Foto-Ebene, vor der die Pflanzen leben. Der Bogen als Leitform kehrt überall wieder.</p>
+    <div class="ostrip">
+      <figure class="banner"><img src="assets/oriental/riad.webp" alt="Riad-Innenhof mit Wasserbecken und Palmen"><figcaption>Riad-Innenhof · Ruhe &amp; Wasser</figcaption></figure>
+      <div class="o-row">
+        <figure><img src="assets/oriental/arch.webp" alt="Marokkanischer Torbogen"><figcaption>Torbogen · die Leitform</figcaption></figure>
+        <figure><img src="assets/oriental/zellige.webp" alt="Zellige-Mosaik"><figcaption>Zellige · Acht-Stern-Muster</figcaption></figure>
+        <figure><img src="assets/oriental/plaster.webp" alt="Tadelakt-Putz mit Pflanze"><figcaption>Tadelakt · warme Textur</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GRUNDANALYSE ==================== -->
+  <section class="analysis">
+    <h2>Grundanalyse — die Design-DNA von „Oriental Oase"</h2>
+    <p class="lede">Was die fünf Welten zu einem System macht: eine gemeinsame Formsprache, eine gemeinsame Typografie und pro Welt genau ein tiefer Ankerton plus ein warmer Akzent. Alles darunter ist austauschbares Token.</p>
+
+    <div class="principles">
+      <div class="principle"><b>Der Bogen als Leitmotiv</b><p>Der marokkanische Bogen (oben rund, unten sanft eckig) ersetzt das generische Rechteck-Thumbnail — auf Hero, Pflanzenkacheln, Story-Avataren und Markt-Bildern. Ein Formelement, überall wiedererkannt.</p></div>
+      <div class="principle"><b>Zellige, aber homöopathisch</b><p>Das Acht-Stern-Kachelmuster liegt nur als 10–16 % Textur auf Bildflächen — nie hinter Text. So bleibt der Charakter, ohne die Lesbarkeit zu kosten.</p></div>
+      <div class="principle"><b>Serif spricht, Sans arbeitet</b><p>Fraunces (bereits im Projekt) für Begrüßungen, Titel, Preise und Level — alles Emotionale. Inter für Labels, Buttons, Meta. Botanische Namen: Fraunces kursiv.</p></div>
+      <div class="principle"><b>Ein Anker, ein Akzent</b><p>Pro Welt trägt genau ein tiefer Ton (Primary: Buttons, FAB, aktive Tabs) und ein Mittelton (Akzent: Fortschritt, Chips, Icons). Der Rest ist warme Fläche — deshalb wirken alle fünf ruhig.</p></div>
+      <div class="principle"><b>Sanfte, farbige Schatten</b><p>Schatten sind aus dem jeweiligen Primary abgeleitet statt grau — Karten „glühen" leicht in ihrer Welt, statt auszugrauen.</p></div>
+      <div class="principle"><b>Begrüßung als Theme-Stimme</b><p>Salam, Marhaba, Ahlan, Salam Aleikum, Masa' alkhair — jede Welt hat eine eigene Anrede und Featured-Pflanze. Das Theme ist Persönlichkeit, nicht nur Farbe.</p></div>
+    </div>
+
+    <h2 style="font-size:24px">Token-Mapping auf <code>theme.css</code></h2>
+    <p class="lede" style="margin-bottom:18px">So übersetzt sich die Studie in die bestehenden shadcn-Variablen — Beispiel Sahara Sage (Light) und Night in Marrakech (Dark):</p>
+    <div class="token-wrap">
+      <table class="token-table">
+        <tr><th>Token</th><th>Sahara Sage (Light)</th><th>Night in Marrakech (Dark)</th><th>Heute</th></tr>
+        <tr><td><code>--background</code></td><td><span class="chipdot" style="background:#f4f1e8"></span>#F4F1E8 warm statt grünstichig</td><td><span class="chipdot" style="background:#1e1530"></span>#1E1530</td><td>#EEF4EF / #0A1810</td></tr>
+        <tr><td><code>--card</code></td><td><span class="chipdot" style="background:#fffdf7"></span>#FFFDF7</td><td><span class="chipdot" style="background:#2d2344"></span>#2D2344</td><td>#FFFFFF / #1C2B25</td></tr>
+        <tr><td><code>--primary</code></td><td><span class="chipdot" style="background:#3e5c47"></span>#3E5C47</td><td><span class="chipdot" style="background:#a794d6"></span>#A794D6</td><td>#064E3B / #10B981</td></tr>
+        <tr><td><code>--accent</code></td><td><span class="chipdot" style="background:#6b8f6e"></span>#6B8F6E</td><td><span class="chipdot" style="background:#8b7bb8"></span>#8B7BB8</td><td>#C2724A / #D4906F</td></tr>
+        <tr><td><code>--secondary / --muted</code></td><td><span class="chipdot" style="background:#e5e7d4"></span>#E5E7D4</td><td><span class="chipdot" style="background:#3c2f4a"></span>#3C2F4A</td><td>#CFE0D2 / #1E3A30</td></tr>
+        <tr><td><code>--radius</code></td><td colspan="2">1rem bleibt · neu: Bogen-Radius <code>999px 999px 1rem 1rem</code> als Utility <code>.arch</code></td><td>1rem</td></tr>
+      </table>
+    </div>
+
+    <h2 style="font-size:24px; margin-top:44px">Empfehlung der Design-Leitung</h2>
+    <p class="lede" style="text-align:left; max-width:none">
+      <b>1. Zwei Welten shippen, drei als Plus-Feature.</b> Sahara Sage als Standard-Light (nächster Verwandter des heutigen Conservatory-Grüns → sanfte Migration), Night in Marrakech als Dark Mode. Marrakech Clay, Oasis Lagoon und Desert Sand sind perfekte „Floralis Plus"-Themes — Monetarisierung ohne neue Features.
+      <br><br><b>2. Der Akzent von Marrakech Clay (#C65B3D) ist quasi euer bestehendes Terracotta (#C2724A)</b> — die Marke bleibt konsistent, wenn Clay-Akzente für Marktplatz-CTAs (Kaufen, Anbieten) auch in den anderen Welten erlaubt sind.
+      <br><br><b>3. Kontrast-Pflicht:</b> In allen fünf Welten erreichen Primary-auf-Background und Ink-auf-Card ≥ 4.5:1. Die Mitteltöne (#A7B49B, #E69A7B, #D2B48C …) sind reine Dekorfarben — nie für Text verwenden.
+      <br><br><b>4. Nächster Schritt:</b> Diese Studie 1:1 in <code>theme.css</code>-Varianten übersetzen (<code>[data-world="sage"]</code> …) — die App braucht dafür keine Komponenten-Änderungen außer der neuen <code>.arch</code>-Utility und dem Zellige-Pattern-Asset.
+    </p>
+  </section>
+
+  <footer class="credits">Floralis · Oriental Oase Designstudie — klickbarer Prototyp, kein Produktionscode. Pflanzenfotos: KI-generiert (Gemini).</footer>
+</div>
+
+<script>
+(function(){
+  const phone = document.getElementById('phone');
+
+  /* ---------- Pflanzenname → Foto-Datei ---------- */
+  const PLANT_IMG = {
+    'Olivenbaum':'olive','Basilikum':'basil','Aloe Vera':'aloe','Zitronenbaum':'lemon',
+    'Rosmarin':'rosemary','Kaktus':'cactus','Monstera':'monstera','Minze':'mint','Farn':'fern',
+    'Palme':'palm','Bogenhanf':'snake','Lavendel':'lavender','Jasmin':'jasmine'
+  };
+  const imgOf = n => 'assets/tiles/' + (PLANT_IMG[n] || 'olive') + '.webp';
+
+  /* ---------- Welten-Inhalte ---------- */
+  const WORLDS = {
+    sage:{
+      name:'Sahara Sage', mood:'erdig · ruhig · natürlich',
+      greet:'Salam 🌿', sub:'Deine Pflanzen, deine Oase.',
+      task:'Olivenbaum gießen', hero:'#p-tree', heroStyle:'--berry:#42553f',
+      detail:{name:'Olivenbaum', lat:'Olea europaea', fam:'Ölbaumgewächse', plant:'#p-tree', style:'--berry:#42553f', water:'In 2 Tagen gießen'},
+      swatches:['#F2EFE7','#DAD6C8','#A7B49B','#6B8F6E','#3E5C47'],
+      note:'Die ausgewogenste Welt: Salbeigrün auf warmem Elfenbein. Empfehlung als Standard-Theme (Light) — ruhig genug für tägliche Pflege-Routinen, grün genug für die Marke.',
+      plants:[
+        {n:'Olivenbaum', d:'vor 2 Tagen', p:'#p-tree', s:'--berry:#42553f'},
+        {n:'Basilikum', d:'vor 1 Tag', p:'#p-herb', s:''},
+        {n:'Aloe Vera', d:'vor 3 Tagen', p:'#p-aloe', s:''}
+      ]
+    },
+    clay:{
+      name:'Marrakech Clay', mood:'warm · sonnig · einladend',
+      greet:'Marhaba ☀️', sub:'Schön, dass du da bist.',
+      task:'Zitronenbaum gießen', hero:'#p-tree', heroStyle:'--berry:#e8b64c;--leaf:#5d7d55;--leaf2:#729468',
+      detail:{name:'Zitronenbaum', lat:'Citrus limon', fam:'Rautengewächse', plant:'#p-tree', style:'--berry:#e8b64c;--leaf:#5d7d55;--leaf2:#729468', water:'Morgen gießen'},
+      swatches:['#FFF3E7','#F8DCC0','#E69A7B','#C65B3D','#873E23'],
+      note:'Die herzlichste Welt — Terracotta liegt direkt neben eurem bestehenden Markenakzent (#C2724A). Ideal für Kampagnen, Onboarding und den Marktplatz.',
+      plants:[
+        {n:'Zitronenbaum', d:'vor 1 Tag', p:'#p-tree', s:'--berry:#e8b64c;--leaf:#5d7d55;--leaf2:#729468'},
+        {n:'Rosmarin', d:'vor 2 Tagen', p:'#p-herb', s:'--leaf:#5a7a5e;--leaf2:#728f74'},
+        {n:'Kaktus', d:'vor 5 Tagen', p:'#p-cactus', s:''}
+      ]
+    },
+    lagoon:{
+      name:'Oasis Lagoon', mood:'frisch · klar · belebend',
+      greet:'Ahlan 🌱', sub:'Deine grüne Auszeit wartet auf dich.',
+      task:'Monstera gießen', hero:'#p-monstera', heroStyle:'--slit:#d6ece7',
+      detail:{name:'Monstera', lat:'Monstera deliciosa', fam:'Aronstabgewächse', plant:'#p-monstera', style:'--slit:#d6ece7', water:'Heute gießen'},
+      swatches:['#E6F4F1','#BCE3DB','#68B8B1','#2E7D76','#124E4A'],
+      note:'Die kühlste Welt — wirkt wie Wasser im Riad-Innenhof. Stark für Fokus-Features (Scanner, Pflanzendoktor), weil nichts vom Inhalt ablenkt.',
+      plants:[
+        {n:'Monstera', d:'vor 1 Tag', p:'#p-monstera', s:'--slit:#d6ece7'},
+        {n:'Minze', d:'vor 1 Tag', p:'#p-herb', s:'--leaf:#3f7a62;--leaf2:#579478'},
+        {n:'Farn', d:'vor 2 Tagen', p:'#p-fern', s:''}
+      ]
+    },
+    sand:{
+      name:'Desert Sand', mood:'weich · warm · harmonisch',
+      greet:'Salam Aleikum ✨', sub:'Lass die Sonne in dein Herz.',
+      task:'Palme gießen', hero:'#p-palm', heroStyle:'',
+      detail:{name:'Palme', lat:'Chamaedorea elegans', fam:'Palmengewächse', plant:'#p-palm', style:'', water:'In 2 Tagen gießen'},
+      swatches:['#FBF6EE','#EADCC6','#D2B48C','#B08A5B','#7A5E3A'],
+      note:'Die dezenteste Welt — fast monochrom, sehr edel. Gute Wahl für eine „Zen"-Lesart der App; Grün kommt hier ausschließlich aus den Pflanzen selbst.',
+      plants:[
+        {n:'Palme', d:'vor 2 Tagen', p:'#p-palm', s:''},
+        {n:'Aloe Vera', d:'vor 3 Tagen', p:'#p-aloe', s:'--leaf:#6b8a5e;--leaf2:#83a072'},
+        {n:'Bogenhanf', d:'vor 5 Tagen', p:'#p-snake', s:''}
+      ]
+    },
+    night:{
+      name:'Night in Marrakech', mood:'tief · mystisch · elegant',
+      greet:"Masa' alkhair 🌙", sub:'Zeit zum Durchatmen.',
+      task:'Lavendel gießen', hero:'#p-lavender', heroStyle:'',
+      detail:{name:'Lavendel', lat:'Lavandula angustifolia', fam:'Lippenblütler', plant:'#p-lavender', style:'', water:'Heute gießen'},
+      swatches:['#F3EFEB','#C8BDB0','#8B7BB8','#3C2F4A','#1E1530'],
+      note:'Der Dark Mode der Familie — tiefes Nachtviolett statt Standard-Schwarz, Lavendel als Primary. Abendliche Gieß-Erinnerungen fühlen sich hier wie ein Ritual an.',
+      plants:[
+        {n:'Lavendel', d:'vor 1 Tag', p:'#p-lavender', s:''},
+        {n:'Jasmin', d:'vor 2 Tagen', p:'#p-tree', s:'--berry:#f3efeb;--leaf:#4e6b52;--leaf2:#5f8063'},
+        {n:'Olivenbaum', d:'vor 3 Tagen', p:'#p-tree', s:'--berry:#42553f'}
+      ]
+    }
+  };
+
+  /* ---------- Palette umschalten ---------- */
+  const chips = document.querySelectorAll('.pchip');
+  function setWorld(key){
+    const w = WORLDS[key];
+    phone.dataset.palette = key;
+    chips.forEach(c => c.setAttribute('aria-pressed', String(c.dataset.p === key)));
+
+    document.getElementById('greet').textContent = w.greet;
+    document.getElementById('greet-sub').textContent = w.sub;
+    document.getElementById('task-name').textContent = w.task;
+
+    const heroPlant = document.getElementById('hero-plant');
+    heroPlant.setAttribute('href', w.hero);
+    heroPlant.setAttribute('style', w.heroStyle);
+
+    const grid = document.getElementById('plantgrid');
+    grid.innerHTML = '';
+    w.plants.forEach(p => {
+      const el = document.createElement('button');
+      el.className = 'ptile';
+      el.innerHTML = '<span class="pimg"><img src="'+imgOf(p.n)+'" alt=""></span><b>'+p.n+'</b><small>'+p.d+'</small>';
+      el.addEventListener('click', () => { setDetail(p, w); go('pg-detail', null); });
+      grid.appendChild(el);
+    });
+
+    /* Detailseite auf Featured-Pflanze der Welt setzen */
+    const d = w.detail;
+    document.getElementById('detail-name').textContent = d.name;
+    document.getElementById('detail-lat').textContent = d.lat;
+    document.getElementById('detail-fam').textContent = d.fam;
+    document.getElementById('detail-water').textContent = d.water;
+    document.getElementById('detail-img').src = imgOf(d.name);
+
+    /* Seitenpanel */
+    document.getElementById('side-name').textContent = w.name;
+    document.getElementById('side-mood').textContent = w.mood;
+    document.getElementById('side-note').textContent = w.note;
+    const sw = document.getElementById('side-swatches');
+    sw.innerHTML = w.swatches.map(h => '<span class="swatch"><i style="background:'+h+'"></i>'+h.replace('#','')+'</span>').join('');
+  }
+  function setDetail(p, w){
+    document.getElementById('detail-name').textContent = p.n;
+    document.getElementById('detail-img').src = imgOf(p.n);
+  }
+  chips.forEach(c => c.addEventListener('click', () => setWorld(c.dataset.p)));
+
+  /* ---------- Navigation (Detailseite gehört visuell zum Oase-Tab) ---------- */
+  const pages = document.querySelectorAll('.page');
+  const navItems = document.querySelectorAll('.nitem');
+  function go(id){
+    const navId = id === 'pg-detail' ? 'pg-oase' : id;
+    pages.forEach(p => p.classList.toggle('active', p.id === id));
+    navItems.forEach(n => n.classList.toggle('on', n.dataset.page === navId));
+    document.getElementById(id).scrollTop = 0;
+  }
+  navItems.forEach(n => n.addEventListener('click', () => go(n.dataset.page)));
+  document.getElementById('back-oase').addEventListener('click', () => go('pg-oase'));
+
+  /* ---------- Scanner-Demo ---------- */
+  document.getElementById('shutter').addEventListener('click', () => {
+    document.getElementById('scan-result').classList.add('show');
+  });
+  document.getElementById('rescan').addEventListener('click', () => {
+    document.getElementById('scan-result').classList.remove('show');
+  });
+
+  /* ---------- Segmented Entdecken ---------- */
+  const segF = document.getElementById('seg-feed'), segN = document.getElementById('seg-nearby');
+  function seg(feed){
+    segF.setAttribute('aria-pressed', String(feed));
+    segN.setAttribute('aria-pressed', String(!feed));
+    document.getElementById('feedview').hidden = !feed;
+    document.getElementById('nearbyview').hidden = feed;
+  }
+  segF.addEventListener('click', () => seg(true));
+  segN.addEventListener('click', () => seg(false));
+
+  setWorld('sage');
+})();
+</script>
