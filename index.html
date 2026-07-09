@@ -1,5 +1,9 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f4f1e8">
 <title>Floralis · Oriental Oase — Design-Mockups</title>
 <style>
   /* ============ Fonts ============
@@ -511,6 +515,38 @@
   @media (max-width:720px){ .o-row{grid-template-columns:1fr} .ostrip .banner{height:180px} }
 
   footer.credits{text-align:center; color:var(--page-muted); font-size:12px; margin-top:60px}
+
+  /* Schwebender Farbwelt-Umschalter (nur App-Modus/Handy) */
+  #worldcycle{
+    display:none; position:absolute; z-index:70;
+    left:16px; bottom:calc(env(safe-area-inset-bottom, 0px) + 92px);
+    align-items:center; gap:8px; padding:8px 14px 8px 9px; border-radius:999px;
+    background:color-mix(in srgb, var(--card) 90%, transparent); backdrop-filter:blur(10px);
+    border:1px solid var(--border); color:var(--ink); box-shadow:var(--shadow);
+    font-size:12px; font-weight:600;
+  }
+  #worldcycle .wc-dots{display:flex}
+  #worldcycle .wc-dots i{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(0,0,0,.12);margin-left:-6px}
+  #worldcycle .wc-dots i:first-child{margin-left:0}
+
+  /* ============ APP-MODUS (Handy): App füllt den Screen ============ */
+  @media (max-width:560px){
+    html,body{background:#000}
+    .studio{max-width:none; padding:0; margin:0}
+    .studio-header, .palette-bar, .stage-side, .oriental-strip, .analysis, footer.credits{display:none !important}
+    .stage{gap:0; display:block}
+    .phone-wrap{position:static}
+    .phone{
+      width:100vw; height:100vh; height:100dvh; max-width:none;
+      border:0; border-radius:0; box-shadow:none;
+    }
+    .island{display:none}
+    .statusbar{display:none}
+    .page{padding-top:calc(env(safe-area-inset-top, 0px) + 22px)}
+    .page.scanner{padding-top:0}
+    .bottomnav{padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 16px)}
+    #worldcycle{display:inline-flex}
+  }
 </style>
 
 <!-- ============ Pflanzen-Symbolbibliothek (handgezeichneter Stil) ============ -->
@@ -981,6 +1017,11 @@
             Profil
           </button>
         </nav>
+
+        <button id="worldcycle" aria-label="Farbwelt wechseln">
+          <span class="wc-dots"><i></i><i></i><i></i></span>
+          <span id="wc-name">Sahara Sage</span>
+        </button>
       </div>
     </div>
 
@@ -1174,12 +1215,30 @@
     document.getElementById('side-note').textContent = w.note;
     const sw = document.getElementById('side-swatches');
     sw.innerHTML = w.swatches.map(h => '<span class="swatch"><i style="background:'+h+'"></i>'+h.replace('#','')+'</span>').join('');
+
+    updateCycle(key);
   }
   function setDetail(p, w){
     document.getElementById('detail-name').textContent = p.n;
     document.getElementById('detail-img').src = imgOf(p.n);
   }
   chips.forEach(c => c.addEventListener('click', () => setWorld(c.dataset.p)));
+
+  /* ---------- Farbwelt-Umschalter (App-Modus/Handy) ---------- */
+  const wcBtn = document.getElementById('worldcycle');
+  const WORLD_ORDER = ['sage','clay','lagoon','sand','night'];
+  function updateCycle(key){
+    const w = WORLDS[key];
+    document.getElementById('wc-name').textContent = w.name;
+    const dots = wcBtn.querySelectorAll('.wc-dots i');
+    const cols = [w.swatches[0], w.swatches[2], w.swatches[4]];
+    dots.forEach((d,i) => d.style.background = cols[i]);
+  }
+  wcBtn.addEventListener('click', () => {
+    const cur = phone.dataset.palette || 'sage';
+    const next = WORLD_ORDER[(WORLD_ORDER.indexOf(cur) + 1) % WORLD_ORDER.length];
+    setWorld(next);
+  });
 
   /* ---------- Navigation (Detailseite gehört visuell zum Oase-Tab) ---------- */
   const pages = document.querySelectorAll('.page');
